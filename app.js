@@ -2,18 +2,11 @@ const express = require("express");
 const app = express();
 const axios = require("axios");
 const cheerio = require("cheerio");
+var cors = require("cors");
 
 // const url =
 //   "http://results.eci.gov.in/ACOCT2019/ConstituencywiseS13254.htm?ac=254";
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "YOUR-DOMAIN.TLD");
-  // update to match the domain you will make the request from
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+app.use(cors());
 
 function getData(url) {
   return axios("http://results.eci.gov.in/ACOCT2019/" + url)
@@ -25,7 +18,6 @@ function getData(url) {
       let constituency = [];
 
       tr.each(function() {
-        //   const td = $(this).find("td");
         let candidate = {};
         candidate["O.S.N"] = $(this)
           .find("td:nth-child(1)")
