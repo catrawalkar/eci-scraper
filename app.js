@@ -2,10 +2,9 @@ const express = require("express");
 const app = express();
 const axios = require("axios");
 const cheerio = require("cheerio");
-var cors = require("cors");
+const cors = require("cors");
+const urlData = require("./urls");
 
-// const url =
-//   "http://results.eci.gov.in/ACOCT2019/ConstituencywiseS13254.htm?ac=254";
 app.use(cors());
 
 function getData(url) {
@@ -59,6 +58,8 @@ app.get("/constituency/:url", async function(req, res) {
   res.status(200).send(response);
 });
 
-app.listen(process.env.PORT || 3000, function() {
-  console.log("Server Started:");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, function() {
+  console.log("Server Started:" + PORT);
 });
