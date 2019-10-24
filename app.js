@@ -1,3 +1,5 @@
+const express = require("express");
+const app = express();
 const axios = require("axios");
 const cheerio = require("cheerio");
 
@@ -45,3 +47,11 @@ axios(url)
     console.log(constituency);
   })
   .catch(console.error);
+
+app.get("/", function(req, res) {
+  res.status(200).send("Welcome to our restful API");
+});
+
+app.listen(3000, function() {
+  console.log("app running on port.", server.address().port);
+});
