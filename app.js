@@ -56,9 +56,9 @@ function getCovidData() {
       const $ = cheerio.load(html);
       const section = $(".elementor-element-51bcd0e");
       // console.log(section);
-      const confirmed = $("#c3183e7").html();
+      const confirmed = $("#sns_global_scripts").html();
 
-      console.log(section);
+      console.log(confirmed.search('document.getElementById("cases")'));
       // const tr = eciTable.find("tbody > tr[style='font-size:12px;']");
       // let constituency = [];
 
@@ -106,11 +106,11 @@ app.get("/covid19/in", async function(req, res) {
 
   res.status(200).send({
     confirmed: 2032,
-    cases_as_per_mohfw: 1965,
+    casesaspermohfw: 1965,
     deaths: 58,
     recovered: 171,
     treatment_ongoing: 1803,
-    no_of_tests_done: 47951
+    nooftestsdone: 47951
   });
 });
 
