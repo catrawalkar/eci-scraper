@@ -114,13 +114,50 @@ function getCovidData() {
     });
 }
 
+function getCovidStatewiseData() {
+  return axios(
+    "https://spreadsheets.google.com/feeds/cells/1IMEwEzT3FwMNCwHpdyotDSZIF1-icQnd9ET7C53v2Z0/1/public/values?alt=json"
+  )
+    .then(response => {
+      response.data.feed.entry.splice(315, 1);
+      data = response.data.feed.entry;
+      const buffer = 15;
+
+      let result = [];
+
+      for (
+        let i = 0, j = 2, k = 3, l = 4;
+        i < data.length;
+        i = i + 15, j = j + 15, k = k + 15, l = l + 15
+      ) {
+        result.push({
+          state: data[i].content["$t"],
+          totalcases: data[j].content["$t"],
+          deaths: data[k].content["$t"],
+          recovered: data[l].content["$t"]
+        });
+      }
+
+      return result;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
+
+getCovidStatewiseData();
+
 app.get("/", function(req, res) {
   res.status(200).send("Welcome to our restful API");
 });
 
 app.get("/covid19/in", async function(req, res) {
   const response = await getCovidData();
+  res.status(200).send(response);
+});
 
+app.get("/covid19/in/statewise", async function(req, res) {
+  const response = await getCovidStatewiseData();
   res.status(200).send(response);
 });
 
