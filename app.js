@@ -158,7 +158,7 @@ app.get("/covid19/in", async function(req, res) {
 
 app.get("/covid19/in/statewise", async function(req, res) {
   const response = await getCovidStatewiseData();
-  res.status(200).send(response);
+  res.status(200).json(response);
 });
 
 app.get("/constituency/:url", async function(req, res) {
