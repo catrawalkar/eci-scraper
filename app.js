@@ -58,7 +58,7 @@ function getCovidData() {
       // console.log(section);
       const confirmed = $("#sns_global_scripts").html();
 
-      console.log(confirmed.search('document.getElementById("cases")'));
+      console.log(confirmed);
       // const tr = eciTable.find("tbody > tr[style='font-size:12px;']");
       // let constituency = [];
 
@@ -110,7 +110,11 @@ app.get("/covid19/in", async function(req, res) {
     deaths: 58,
     recovered: 171,
     treatment_ongoing: 1803,
-    nooftestsdone: 47951
+    nooftestsdone: 47951,
+    lineone:
+      "Cases updated 2-Apr, 11:59 am; Tests as of 01-Apr; next update 02:00 pm; Sources: MoHFW, Worldometers, ICMR, JHU",
+    linetwo:
+      "*Sources: Ministry of Health and Family Welfare, Worldometers, JHU, BNO or crowdsourcing with verification of official sources; MoHFW data: Cases = 1965, Recoveries = 150, Deaths = 50. Testing source: ICMR"
   });
 });
 
