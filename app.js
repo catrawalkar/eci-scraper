@@ -54,18 +54,8 @@ function getCovidData() {
     .then(response => {
       const html = response.data;
       const $ = cheerio.load(html);
-      const section = $(".elementor-element-51bcd0e");
-      // console.log(section);
+
       const scriptTag = $("#sns_global_scripts").html();
-      // .filter((i, x) => {
-      //   // console.log(x.data.match(/document.getElementById\("[a-z]{5,8}/g));
-      //   return x.data.match(/document.getElementById\("[a-z]{5,8}/g);
-      // });
-      // .get(0);
-
-      const test = $("#sns_global_scripts").html();
-
-      console.log(test);
 
       const confirmed = scriptTag
         .match(/document.getElementById\("cases"\).innerHTML = "[0-9]+"/g)[0]
@@ -92,7 +82,20 @@ function getCovidData() {
         .match(/[0-9]+/g)[0];
 
       const lineone =
-        "Cases updated 2-Apr, 02:01 pm; Tests as of 01-Apr; next update 04:00 pm; Sources: MoHFW, Worldometers, ICMR, JHU ";
+        "Cases updated 2-Apr, " +
+        scriptTag
+          .match(/let currentUpdateTime = '[0-9]{2}:[0-9]{2}'/g)[0]
+          .match(/[0-9]{2}:[0-9]{2}/g)[0] +
+        " " +
+        scriptTag.match(/let timeEC = '[ap]{1}m'/g)[0].match(/[ap]{1}m/g)[0] +
+        "; Tests as of 01-Apr; next update " +
+        scriptTag
+          .match(/nextUpdateTime = '[0-9]{2}:[0-9]{2}'/g)[0]
+          .match(/[0-9]{2}:[0-9]{2}/g)[0] +
+        " " +
+        scriptTag.match(/let timeEN = '[ap]{1}m'/g)[0].match(/[ap]{1}m/g)[0] +
+        "Sources: MoHFW, Worldometers, ICMR, JHU";
+
       const linetwo = $(".elementor-element-09fdaea p").text();
 
       return {
