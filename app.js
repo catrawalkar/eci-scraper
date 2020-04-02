@@ -56,9 +56,16 @@ function getCovidData() {
       const $ = cheerio.load(html);
       const section = $(".elementor-element-51bcd0e");
       // console.log(section);
-      const confirmed = $("#sns_global_scripts").html();
-
+      const confirmed = $("#sns_global_scripts")
+        .map((i, x) => x.children[0])
+        .filter((i, x) => {
+          console.log(x.data);
+          return x && x.data.match(/document/);
+        });
       console.log(confirmed);
+      // .get(0);
+
+      // console.log(confirmed);
       // const tr = eciTable.find("tbody > tr[style='font-size:12px;']");
       // let constituency = [];
 
@@ -105,11 +112,11 @@ app.get("/covid19/in", async function(req, res) {
   const response = await getCovidData();
 
   res.status(200).send({
-    confirmed: 2032,
+    confirmed: 2094,
     casesaspermohfw: 1965,
     deaths: 58,
     recovered: 171,
-    treatment_ongoing: 1803,
+    treatment_ongoing: 1865,
     nooftestsdone: 47951,
     lineone:
       "Cases updated 2-Apr, 11:59 am; Tests as of 01-Apr; next update 02:00 pm; Sources: MoHFW, Worldometers, ICMR, JHU",
