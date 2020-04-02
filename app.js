@@ -119,7 +119,7 @@ app.get("/constituency/:url", async function(req, res) {
   res.status(200).send(response);
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = 1339;
 
 app.listen(PORT, function() {
   console.log("Server Started:" + PORT);
