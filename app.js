@@ -63,6 +63,10 @@ function getCovidData() {
       // });
       // .get(0);
 
+      const test = $("#sns_global_scripts").html();
+
+      console.log(test);
+
       const confirmed = scriptTag
         .match(/document.getElementById\("cases"\).innerHTML = "[0-9]+"/g)[0]
         .match(/[0-9]+/g)[0];
@@ -89,8 +93,7 @@ function getCovidData() {
 
       const lineone =
         "Cases updated 2-Apr, 02:01 pm; Tests as of 01-Apr; next update 04:00 pm; Sources: MoHFW, Worldometers, ICMR, JHU ";
-      const linetwo =
-        "*Sources: Ministry of Health and Family Welfare, Worldometers, JHU, BNO or crowdsourcing with verification of official sources; MoHFW data: Cases = 1965, Recoveries = 150, Deaths = 50. Testing source: ICMR";
+      const linetwo = $(".elementor-element-09fdaea p").text();
 
       return {
         confirmed,
@@ -108,7 +111,7 @@ function getCovidData() {
     });
 }
 
-const response = getCovidData();
+getCovidData();
 
 app.get("/", function(req, res) {
   res.status(200).send("Welcome to our restful API");
