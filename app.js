@@ -94,7 +94,7 @@ function getCovidData() {
           .match(/[0-9]{2}:[0-9]{2}/g)[0] +
         " " +
         scriptTag.match(/let timeEN = '[ap]{1}m'/g)[0].match(/[ap]{1}m/g)[0] +
-        "; Sources: MoHFW, Worldometers, ICMR, JHU";
+        "; Sources: MoHFW, Worldometers, ICMR, JHU, covidindia.org";
 
       const linetwo = $(".elementor-element-09fdaea p").text();
 
