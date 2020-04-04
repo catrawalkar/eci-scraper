@@ -9,49 +9,35 @@ app.use(cors());
 
 function getData(url) {
   return axios("http://results.eci.gov.in/ACOCT2019/" + url)
-    .then(response => {
+    .then((response) => {
       const html = response.data;
       const $ = cheerio.load(html);
       const eciTable = $("#div1 > table").first();
       const tr = eciTable.find("tbody > tr[style='font-size:12px;']");
       let constituency = [];
 
-      tr.each(function() {
+      tr.each(function () {
         let candidate = {};
-        candidate["O.S.N"] = $(this)
-          .find("td:nth-child(1)")
-          .text();
-        candidate["Candidate"] = $(this)
-          .find("td:nth-child(2)")
-          .text();
-        candidate["Party"] = $(this)
-          .find("td:nth-child(3)")
-          .text();
-        candidate["EVM Votes"] = $(this)
-          .find("td:nth-child(4)")
-          .text();
-        candidate["Postal Votes"] = $(this)
-          .find("td:nth-child(5)")
-          .text();
-        candidate["Total Votes"] = $(this)
-          .find("td:nth-child(6)")
-          .text();
-        candidate["% of Votes"] = $(this)
-          .find("td:nth-child(7)")
-          .text();
+        candidate["O.S.N"] = $(this).find("td:nth-child(1)").text();
+        candidate["Candidate"] = $(this).find("td:nth-child(2)").text();
+        candidate["Party"] = $(this).find("td:nth-child(3)").text();
+        candidate["EVM Votes"] = $(this).find("td:nth-child(4)").text();
+        candidate["Postal Votes"] = $(this).find("td:nth-child(5)").text();
+        candidate["Total Votes"] = $(this).find("td:nth-child(6)").text();
+        candidate["% of Votes"] = $(this).find("td:nth-child(7)").text();
         constituency.push(candidate);
       });
 
       return constituency;
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
     });
 }
 
 function getCovidData() {
   return axios("https://covidindia.org/")
-    .then(response => {
+    .then((response) => {
       const html = response.data;
       const $ = cheerio.load(html);
 
@@ -82,13 +68,13 @@ function getCovidData() {
         .match(/[0-9]+/g)[0];
 
       const lineone =
-        "Cases updated 2-Apr, " +
+        "Cases updated 4-Apr, " +
         scriptTag
           .match(/let currentUpdateTime = '[0-9]{2}:[0-9]{2}'/g)[0]
           .match(/[0-9]{2}:[0-9]{2}/g)[0] +
         " " +
         scriptTag.match(/let timeEC = '[ap]{1}m'/g)[0].match(/[ap]{1}m/g)[0] +
-        "; Tests as of 01-Apr; next update " +
+        "; Tests as of 03-Apr; next update " +
         scriptTag
           .match(/nextUpdateTime = '[0-9]{2}:[0-9]{2}'/g)[0]
           .match(/[0-9]{2}:[0-9]{2}/g)[0] +
@@ -106,10 +92,10 @@ function getCovidData() {
         treatment_ongoing,
         nooftestsdone,
         lineone,
-        linetwo
+        linetwo,
       };
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
     });
 }
@@ -118,7 +104,7 @@ function getCovidStatewiseData() {
   return axios(
     "https://spreadsheets.google.com/feeds/cells/1IMEwEzT3FwMNCwHpdyotDSZIF1-icQnd9ET7C53v2Z0/1/public/values?alt=json"
   )
-    .then(response => {
+    .then((response) => {
       response.data.feed.entry.splice(315, 1);
       data = response.data.feed.entry;
       const buffer = 15;
@@ -134,34 +120,34 @@ function getCovidStatewiseData() {
           state: data[i].content["$t"],
           totalcases: data[j].content["$t"],
           deaths: data[k].content["$t"],
-          recovered: data[l].content["$t"]
+          recovered: data[l].content["$t"],
         });
       }
 
       return { result };
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
     });
 }
 
 getCovidStatewiseData();
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   res.status(200).send("Welcome to our restful API");
 });
 
-app.get("/covid19/in", async function(req, res) {
+app.get("/covid19/in", async function (req, res) {
   const response = await getCovidData();
   res.status(200).send(response);
 });
 
-app.get("/covid19/in/statewise", async function(req, res) {
+app.get("/covid19/in/statewise", async function (req, res) {
   const response = await getCovidStatewiseData();
   res.status(200).json(response);
 });
 
-app.get("/constituency/:url", async function(req, res) {
+app.get("/constituency/:url", async function (req, res) {
   const response = await getData(req.params.url);
   console.log(response);
   res.status(200).send(response);
@@ -169,6 +155,6 @@ app.get("/constituency/:url", async function(req, res) {
 
 const PORT = 1339;
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log("Server Started:" + PORT);
 });
