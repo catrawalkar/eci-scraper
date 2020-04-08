@@ -44,37 +44,37 @@ function getCovidData() {
       const scriptTag = $("#sns_global_scripts").html();
 
       const confirmed = scriptTag
-        .match(/document.getElementById\("cases"\).innerHTML = "[0-9]+"/g)[0]
+        .match(/El\("cases"\).innerHTML = '[0-9]+'/g)[0]
         .match(/[0-9]+/g)[0];
 
       const casesaspermohfw = scriptTag
-        .match(/document.getElementById\("mohfw"\).innerHTML = "[0-9]+"/g)[0]
+        .match(/El\("mohfw"\).innerHTML = '[0-9]+'/g)[0]
         .match(/[0-9]+/g)[0];
 
       const deaths = scriptTag
-        .match(/document.getElementById\("death"\).innerHTML = "[0-9]+"/g)[0]
+        .match(/El\("death"\).innerHTML = '[0-9]+'/g)[0]
         .match(/[0-9]+/g)[0];
 
       const recovered = scriptTag
-        .match(/document.getElementById\("recovery"\).innerHTML = "[0-9]+"/g)[0]
+        .match(/El\("recovery"\).innerHTML = '[0-9]+'/g)[0]
         .match(/[0-9]+/g)[0];
 
       const treatment_ongoing = scriptTag
-        .match(/document.getElementById\("ongoing"\).innerHTML = "[0-9]+"/g)[0]
+        .match(/El\("ongoing"\).innerHTML = '[0-9]+'/g)[0]
         .match(/[0-9]+/g)[0];
 
       const nooftestsdone = scriptTag
-        .match(/document.getElementById\("testnum"\).innerHTML = "[0-9]+"/g)[0]
+        .match(/El\("testnum"\).innerHTML = '[0-9]+'/g)[0]
         .match(/[0-9]+/g)[0];
 
       const lineone =
-        "Cases updated 4-Apr, " +
+        "Cases updated 8-Apr, " +
         scriptTag
           .match(/let currentUpdateTime = '[0-9]{2}:[0-9]{2}'/g)[0]
           .match(/[0-9]{2}:[0-9]{2}/g)[0] +
         " " +
         scriptTag.match(/let timeEC = '[ap]{1}m'/g)[0].match(/[ap]{1}m/g)[0] +
-        "; Tests as of 03-Apr; next update " +
+        "; Tests as of 07-Apr; next update " +
         scriptTag
           .match(/nextUpdateTime = '[0-9]{2}:[0-9]{2}'/g)[0]
           .match(/[0-9]{2}:[0-9]{2}/g)[0] +
