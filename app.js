@@ -68,13 +68,13 @@ function getCovidData() {
         .match(/[0-9]+/g)[0];
 
       const lineone =
-        "Cases updated 8-Apr, " +
+        "Cases updated " +
         scriptTag
           .match(/let currentUpdateTime = '[0-9]{2}:[0-9]{2}'/g)[0]
           .match(/[0-9]{2}:[0-9]{2}/g)[0] +
         " " +
         scriptTag.match(/let timeEC = '[ap]{1}m'/g)[0].match(/[ap]{1}m/g)[0] +
-        "; Tests as of 07-Apr; next update " +
+        "; Next update " +
         scriptTag
           .match(/nextUpdateTime = '[0-9]{2}:[0-9]{2}'/g)[0]
           .match(/[0-9]{2}:[0-9]{2}/g)[0] +
