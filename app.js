@@ -47,9 +47,11 @@ function getCovidData() {
         .match(/El\("cases"\).innerHTML = '[0-9]+'/g)[0]
         .match(/[0-9]+/g)[0];
 
-      const casesaspermohfw = scriptTag
-        .match(/El\("mohfw"\).innerHTML = '[0-9]+'/g)[0]
-        .match(/[0-9]+/g)[0];
+      // const casesaspermohfw = scriptTag
+      //   .match(/El\("mohfw"\).innerHTML = '[0-9]+'/g)[0]
+      //   .match(/[0-9]+/g)[0];
+
+      const casesaspermohfw = confirmed;
 
       const deaths = scriptTag
         .match(/El\("death"\).innerHTML = '[0-9]+'/g)[0]
