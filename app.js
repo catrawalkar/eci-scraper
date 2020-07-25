@@ -72,8 +72,8 @@ function getCovidData() {
       const lineone =
         "Cases updated " +
         scriptTag
-          .match(/let currentUpdateTime = '[0-9]{2}:[0-9]{2} [ap]{1}m'/g)[0]
-          .match(/[0-9]{2}:[0-9]{2} [ap]{1}m/g)[0] +
+          .match(/let currentUpdateTime = '[0-9]{1,2}:[0-9]{2} [ap]{1}m'/g)[0]
+          .match(/[0-9]{1,2}:[0-9]{2} [ap]{1}m/g)[0] +
         " ; Next update " +
         // scriptTag
         //   .match(/nextUpdateTime = '[0-9]{2}:[0-9]{2} [ap]{1}m'/g)[0]
